@@ -1,0 +1,9 @@
+node_modules/
+.astro/
+dist/
+dist - Copy/
+_lsa_zip_hd_refresh/
+_lsa_zip_review/
+*.log
+*.rar
+*.zip

@@ -1,0 +1,19 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  className?: string;
+  label?: string;
+  index?: number;
+}
+
+const { src, alt, className = "image-frame", label, index = 1 } = Astro.props;
+const delay = `${Math.min(index * 45, 280)}ms`;
+---
+
+<figure class={`${className} reveal`} style={`--delay: ${delay}`}>
+  <a href={src} target="_blank" rel="noopener noreferrer" aria-label={`Open ${alt}`}>
+    <img src={src} alt={alt} loading="lazy" />
+    {label && <figcaption>{label}</figcaption>}
+  </a>
+</figure>

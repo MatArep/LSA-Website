@@ -1,0 +1,534 @@
+---
+import ContactLink from "../components/ContactLink.astro";
+import ImageCard from "../components/ImageCard.astro";
+import ProductCard from "../components/ProductCard.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+
+const instagramUrl = "https://www.instagram.com/lsapparel_24?igsh=MTh6aDVwMDh4cW1pNQ==";
+
+const productDetails = [
+  {
+    title: "Aqua Esports Jersey",
+    type: "Esports team jersey",
+    detail: "Light aqua esports jersey with EA Sports front mark, player name/number back print, and geometric sleeve panels.",
+    closeups: ["CLOSE UP (12).png", "CLOSE UP (13).png", "CLOSE UP (14).png"]
+  },
+  {
+    title: "STEM Xplore Polo",
+    type: "STEM club polo",
+    detail: "Cream and navy STEM Xplore polo with gold typography, floral sleeve pattern, and a clean academic club finish.",
+    closeups: ["CLOSE UP (15).png", "CLOSE UP (16).png"]
+  },
+  {
+    title: "Help For Hope Tee",
+    type: "Charity event tee",
+    detail: "Warm cream-to-coral Help For Hope tee with orange collar, soft gradient body, and charity event statement print.",
+    closeups: ["CLOSE UP (25).png", "CLOSE UP (26).png", "CLOSE UP (27).png"]
+  },
+  {
+    title: "Burgundy V-Neck Jersey",
+    type: "Campus jersey design",
+    detail: "Cream and burgundy V-neck jersey with maroon trim, front crest placement, and matching sleeve detail.",
+    closeups: ["CLOSE UP (28).png", "CLOSE UP (29).png"]
+  },
+  {
+    title: "Jasmine Name Set",
+    type: "Custom name jersey",
+    detail: "White, brown, and pink custom name jersey with bold 07 back number and clean sponsor-style front layout.",
+    closeups: ["CLOSE UP (32).png"]
+  },
+  {
+    title: "Purple Tiger Jersey",
+    type: "Sport club jersey",
+    detail: "Purple and yellow JSP tiger jersey with bold mascot graphics, V-neck collar, and athletic sleeve pattern.",
+    closeups: ["CLOSE UP (30).png", "CLOSE UP (31).png"]
+  },
+  {
+    title: "Blue Stripe Atletigo",
+    type: "Football jersey",
+    detail: "White and royal blue striped football jersey with gold crest embroidery and classic vertical stripe styling.",
+    closeups: ["CLOSE UP (36).png"]
+  },
+  {
+    title: "Black Blue Atletigo",
+    type: "Football jersey",
+    detail: "Black and blue Atletigo jersey with gold crest, dark V-neck collar, and large gold back number treatment.",
+    closeups: ["CLOSE UP (33).png", "CLOSE UP (34).png", "CLOSE UP (35).png"]
+  },
+  {
+    title: "Fun Run Jersey",
+    type: "Running event tee",
+    detail: "Navy fun run jersey with decorative tonal pattern, yellow cuff detail, and bold event logo on the chest.",
+    closeups: ["CLOSE UP (41).png", "CLOSE UP (42).png"]
+  },
+  {
+    title: "Sulam Green Polo",
+    type: "Education polo shirt",
+    detail: "Green SULAM polo with black collar, multi-color education logo, and Physical & Health Education back text.",
+    closeups: ["CLOSE UP (43).png", "CLOSE UP (44).png"]
+  },
+  {
+    title: "Fact Crew Polo",
+    type: "Crew polo shirt",
+    detail: "Black, white, and red Fact Crew polo with button collar, sleeve stripe, Malaysian flag detail, and crest patch.",
+    closeups: ["CLOSE UP (10).png", "CLOSE UP (11).png"]
+  },
+  {
+    title: "Angsana Black Jersey",
+    type: "Campus sport jersey",
+    detail: "Black, white, and teal Angsana jersey with sharp panel lines, striped hem detail, and sporty V-neck collar.",
+    closeups: ["CLOSE UP (38).png", "CLOSE UP (39).png", "CLOSE UP (40).png"]
+  },
+  {
+    title: "Tutti Frutti Squad",
+    type: "Pastel team jersey",
+    detail: "Pastel blue and pink squad jersey with playful geometric panels, back number print, and light teamwear styling.",
+    closeups: []
+  },
+  {
+    title: "OPEMS Beige Polo",
+    type: "Administration polo",
+    detail: "Beige OPEMS polo with brown collar, floral background pattern, sleeve flags, and department text on the back.",
+    closeups: ["CLOSE UP (4).png", "CLOSE UP (5).png", "CLOSE UP (6).png"]
+  },
+  {
+    title: "Fesko Brown Polo",
+    type: "Event polo shirt",
+    detail: "Brown and cream FESKO polo with white collar, curved chest logo, and clean back-name customization area.",
+    closeups: ["CLOSE UP (7).png", "CLOSE UP (8).png", "CLOSE UP (9).png"]
+  },
+  {
+    title: "Sarawak Council Polo",
+    type: "Committee polo",
+    detail: "Black and red UiTM Sarawak council polo with pocket detail, official crest, and back committee wording.",
+    closeups: ["CLOSE UP (23).png", "CLOSE UP (24).png"]
+  },
+  {
+    title: "FSI Synergy Jersey",
+    type: "Purple team jersey",
+    detail: "Purple FSI Synergy jersey with white sleeve trim, black side graphics, and bold 24/25 back number style.",
+    closeups: ["CLOSE UP (21).png", "CLOSE UP (22).png"]
+  },
+  {
+    title: "Smiles Beyond Walls",
+    type: "Community event tee",
+    detail: "Light blue Smiles Beyond Walls tee with handprint graphics, soft educational event artwork, and clean sleeve trim.",
+    closeups: ["CLOSE UP (19).png", "CLOSE UP (20).png"]
+  },
+  {
+    title: "Journalism Maroon Jersey",
+    type: "Faculty jersey",
+    detail: "Maroon Journalism UiTM Shah Alam jersey with tonal swirl pattern, cream panels, and faculty identity graphics.",
+    closeups: ["CLOSE UP (17).png", "CLOSE UP (18).png"]
+  },
+  {
+    title: "Occupational Therapy Jersey",
+    type: "Faculty jersey",
+    detail: "Cream and maroon Occupational Therapy jersey with geometric pattern, LSA neck label, and faculty back text.",
+    closeups: ["CLOSE UP (2).png", "CLOSE UP (3).png", "CLOSE UP.png"]
+  }
+];
+
+const closeupPath = (file) => `assets/closeups/${file}`;
+
+const products = Array.from({ length: 20 }, (_, item) => {
+  const index = item + 1;
+  const product = productDetails[item];
+
+  return {
+    index,
+    src: `assets/products/product-${String(index).padStart(2, "0")}.png`,
+    title: product.title,
+    type: product.type,
+    detail: product.detail,
+    closeups: product.closeups.map(closeupPath)
+  };
+});
+
+const sizingCharts = Array.from({ length: 10 }, (_, item) => {
+  const index = item + 1;
+  return `assets/sizing/size-${String(index).padStart(2, "0")}.png`;
+});
+
+const priceLists = Array.from({ length: 4 }, (_, item) => {
+  const index = item + 1;
+  return `assets/pricing/price-${String(index).padStart(2, "0")}.png`;
+});
+
+const eventPhotos = [
+  "assets/events/event-01.png",
+  "assets/events/event-02.png",
+  "assets/events/event-03.png",
+  "assets/events/event-04.png",
+  "assets/events/event-05.png",
+  "assets/events/event-06.png",
+  "assets/events/Event-07.png",
+  "assets/events/Event-08.png",
+  "assets/events/Event-09.png"
+];
+
+const moments = eventPhotos.map((src, index) => {
+  const copy = [
+    {
+      name: "LSA X Angsana",
+      designation: "Custom teamwear",
+      quote: "A clean jersey setup made for the whole squad: sharp colors, comfortable fit, and a look that feels ready before the first whistle."
+    },
+    {
+      name: "LSA X Angsana",
+      designation: "Club apparel",
+      quote: "Built for groups that want matching outfits without losing personality. Simple ordering, strong identity, and easy sizing references."
+    },
+    {
+      name: "LSA X Fke",
+      designation: "Crew uniform",
+      quote: "From setup to group photos, LSA apparel keeps the team looking organized while still feeling casual enough to wear after the event."
+    },
+    {
+      name: "LSA X Saf UITM",
+      designation: "Lifestyle wear",
+      quote: "Sport details with a streetwear finish, made for everyday rotation and team moments that deserve a cleaner visual identity."
+    },
+    {
+      name: "LSA X CSS",
+      designation: "Group customwear",
+      quote: "Sizes, names, colors, and deadlines can all be planned clearly so the final project feels smooth from first idea to delivery."
+    },
+    {
+      name: "LSA X FM UITM SA",
+      designation: "Real customers",
+      quote: "Actual wear, actual people, and actual moments: the best way to see how the designs translate into apparel that gets used."
+    },
+    {
+  name: "LSA X Kesusma",
+  designation: "University Student Organization",
+  quote: "A collaboration created for Kesusma, combining comfort, identity, and a modern design that represents the spirit of its members."
+},
+{
+  name: "LSA X Mat Kilau",
+  designation: "Community Collaboration",
+  quote: "A bold collaboration inspired by heritage, transforming timeless values into wearable pieces with a modern edge."
+},
+{
+  name: "LSA X Bakti Siswa",
+  designation: "Student Volunteer Program",
+  quote: "Designed for students who serve the community, this apparel reflects unity, dedication, and the passion to make a positive impact."
+}
+
+  ];
+
+  return {
+    ...copy[index],
+    src
+  };
+});
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LS Apparel | Custom Jerseys & Apparel</title>
+    <meta
+      name="description"
+      content="LS Apparel creates custom jerseys and apparel for teams, events, and everyday wear. Browse selected designs, sizing charts, event photos, and contact details."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient-layer" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="LS Apparel home">
+        <span class="brand-mark brand-mark--image">
+          <img src="assets/brand/lsa-mark.png" alt="" />
+        </span>
+        <span>LS Apparel</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#products">Drops</a>
+        <a href="#about">Studio</a>
+        <a href="#sizing">Sizing</a>
+        <a href="#moments">Moments</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="ig-button" href={instagramUrl} target="_blank" rel="noopener noreferrer">
+        Instagram
+      </a>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy-block">
+          <img class="hero-logo" src="assets/brand/lsa-wordmark.png" alt="LS Apparel official logo" />
+          <p class="eyebrow">Kuala Lumpur customwear studio</p>
+          <h1>
+            LS
+            <span>Apparel</span>
+          </h1>
+          <p class="tagline">Elevate your style, not your budget.</p>
+          <p class="hero-copy">
+            A selected showcase of jerseys and clothes designed for teams,
+            campus clubs, event crews, and community groups.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#products">View selected designs</a>
+            <a class="secondary-action" href={instagramUrl} target="_blank" rel="noopener noreferrer">
+              DM on Instagram
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-stage">
+          <div class="hero-card hero-card--back">
+            <img src="assets/products/product-02.png" alt="LS Apparel secondary design" />
+          </div>
+          <div class="hero-card hero-card--front">
+            <img src="assets/products/product-01.png" alt="LS Apparel jersey design" />
+            <span class="sticker">Portfolio</span>
+          </div>
+          <div class="studio-note">
+            <span>custom fit</span>
+            <strong>Team / Street / Event</strong>
+          </div>
+          <div class="official-mark">
+            <img src="assets/brand/lsa-mark.png" alt="LS Apparel monogram" />
+          </div>
+        </div>
+      </section>
+
+      <div class="ticker" aria-label="LS Apparel services">
+        <div>
+          <span>Custom Jerseys</span>
+          <span>Teamwear</span>
+          <span>Event Shirts</span>
+          <span>Selected Designs</span>
+          <span>More On Instagram</span>
+          <span>Custom Apparel</span>
+          <span>LS Apparel</span>
+        </div>
+      </div>
+
+      <section class="section feature-strip" aria-label="Business highlights">
+        <article>
+          <span>Showcase</span>
+          <strong>Selected Work</strong>
+          <p>A small preview of LSA clothing designs and apparel projects.</p>
+        </article>
+        <article>
+          <span>Made For</span>
+          <strong>Teams & Events</strong>
+          <p>Built for groups that need matching apparel with a sharper identity.</p>
+        </article>
+        <article>
+          <span>Style Direction</span>
+          <strong>Sport / Street</strong>
+          <p>Bold contrast, clean typography, and jersey-first visuals.</p>
+        </article>
+      </section>
+
+      <section class="section collection-section" id="products">
+        <SectionHeader
+          eyebrow="Selected designs"
+          title="Jerseys & Clothes"
+          text="A preview of clothing designs LSA has worked on. Click any sample to see full product images and close-up details."
+        />
+        <div class="product-grid">
+          {products.map((product) => <ProductCard {...product} />)}
+        </div>
+        <div class="instagram-showcase">
+          <div>
+            <p class="eyebrow">More on Instagram</p>
+            <h3>LSA has many more completed designs.</h3>
+            <p>
+              This website only shows part of the collection. Visit Instagram to
+              see more jerseys, polos, event apparel, and real customer updates.
+            </p>
+          </div>
+          <div class="instagram-preview" aria-label="Instagram preview">
+            <img src="assets/products/product-09.png" alt="LS Apparel Instagram design preview" loading="lazy" />
+            <img src="assets/products/product-18.png" alt="LS Apparel Instagram apparel preview" loading="lazy" />
+            <img src="assets/events/event-01.png" alt="LS Apparel Instagram event preview" loading="lazy" />
+          </div>
+          <a class="primary-action" href={instagramUrl} target="_blank" rel="noopener noreferrer">
+            Open @lsapparel_24
+          </a>
+        </div>
+      </section>
+
+      <section class="section studio-section" id="about">
+        <div class="studio-panel">
+          <img class="panel-logo" src="assets/brand/lsa-wordmark.png" alt="LS Apparel wordmark" loading="lazy" />
+          <SectionHeader
+            eyebrow="About the studio"
+            title="Small budget, strong identity."
+            text="LS Apparel helps teams, clubs, and event crews look organized without making the order feel complicated."
+          />
+          <div class="studio-points">
+            <span>Design guidance</span>
+            <span>Size references</span>
+            <span>Group orders</span>
+            <span>Instagram-first contact</span>
+          </div>
+        </div>
+        <div class="business-card-wrap">
+          <img src="assets/brand/business-card.png" alt="LS Apparel business card" loading="lazy" />
+        </div>
+      </section>
+
+      <section class="section dark-band" id="sizing">
+        <SectionHeader
+          eyebrow="Fit guide"
+          title="Sizing Charts"
+          text="Choose the right size before ordering. These references make team orders easier to collect."
+        />
+        <div class="image-scroll">
+          {
+            sizingCharts.map((src, index) => (
+              <ImageCard src={src} alt={`LS Apparel sizing chart ${index + 1}`} index={index + 1} />
+            ))
+          }
+        </div>
+        <div class="price-list-block">
+          <SectionHeader
+            eyebrow="Order guide"
+            title="Price List"
+            text="Refer to these price list images when planning your jersey, polo, or apparel order."
+          />
+          <div class="price-list-grid">
+            {
+              priceLists.map((src, index) => (
+                <ImageCard
+                  src={src}
+                  alt={`LS Apparel price list ${index + 1}`}
+                  className="price-list-frame"
+                  index={index + 1}
+                />
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="section moments-section dark-band" id="moments">
+        <div class="moments-heading">
+          <SectionHeader
+            eyebrow="For the moment"
+            title="Event Moments"
+            text="Swipe through LSA apparel in action. Use the arrows or keyboard keys to move between photos."
+          />
+          <a class="secondary-action" href={instagramUrl} target="_blank" rel="noopener noreferrer">
+            See more on Instagram
+          </a>
+        </div>
+        <div class="circular-moments" data-moments>
+          <div class="moment-image-stage">
+            {
+              moments.map((moment, index) => (
+                <a
+                  href={moment.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class={`moment-photo ${index === 0 ? "is-active" : ""}`}
+                  data-moment-photo
+                  data-index={index}
+                  aria-label={`Open ${moment.name} photo`}
+                >
+                  <img src={moment.src} alt={`LS Apparel ${moment.name}`} loading={index === 0 ? "eager" : "lazy"} />
+                </a>
+              ))
+            }
+          </div>
+          <div class="moment-copy">
+            {
+              moments.map((moment, index) => (
+                <article class={`moment-testimony ${index === 0 ? "is-active" : ""}`} data-moment-copy data-index={index}>
+                  <h3>{moment.name}</h3>
+                  <p class="moment-designation">{moment.designation}</p>
+                  <p class="moment-quote">{moment.quote}</p>
+                </article>
+              ))
+            }
+            <div class="moment-controls" aria-label="Moment controls">
+              <button type="button" class="moment-button" data-moment-prev aria-label="Previous moment">
+                <span aria-hidden="true">&#8249;</span>
+              </button>
+              <button type="button" class="moment-button" data-moment-next aria-label="Next moment">
+                <span aria-hidden="true">&#8250;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-section" id="contact">
+        <div>
+          <p class="eyebrow">Contact us</p>
+          <h2>Ready to make the next drop?</h2>
+          <p>
+            Send your design idea, quantity, sizes, and deadline. LSA can help
+            shape the design and guide the order details.
+          </p>
+        </div>
+        <div class="contact-links">
+          <ContactLink href="tel:+60198825804" meta="Call / WhatsApp" label="019-882 5804 (Lukhman)" />
+          <ContactLink href="tel:+60126856370" meta="Call / WhatsApp" label="012-685 6370 (Syahmi)" />
+          <ContactLink href="mailto:lsapparel2024@gmail.com" meta="Email" label="lsapparel2024@gmail.com" />
+          <ContactLink href={instagramUrl} meta="Instagram" label="@lsapparel_24" external />
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>LS Apparel</span>
+      <span>Elevate your style, not your budget.</span>
+    </footer>
+
+    <div class="product-modal" data-product-modal hidden>
+      <div class="modal-backdrop" data-modal-close></div>
+      <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button type="button" class="modal-close" data-modal-close aria-label="Close product viewer">x</button>
+        <div class="modal-gallery">
+          <img data-modal-main src="" alt="" />
+          <div class="modal-closeups">
+            <div class="closeup-frame closeup-frame--top">
+              <img data-modal-closeup-one src="" alt="" />
+            </div>
+            <div class="closeup-frame closeup-frame--bottom">
+              <img data-modal-closeup-two src="" alt="" />
+            </div>
+            <div class="closeup-frame closeup-frame--third">
+              <img data-modal-closeup-three src="" alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-copy">
+          <p class="eyebrow">Close-up preview</p>
+          <h2 id="modalTitle">LSA Drop</h2>
+          <p data-modal-type>Team jersey design</p>
+          <div class="modal-portfolio-row">
+            <strong>Portfolio preview</strong>
+            <span>See more LSA work on Instagram</span>
+          </div>
+          <p class="hd-note">Click any image to open the original HD file.</p>
+          <a class="primary-action" href={instagramUrl} target="_blank" rel="noopener noreferrer">
+            View more on Instagram
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <script is:inline src="script.js"></script>
+  </body>
+</html>

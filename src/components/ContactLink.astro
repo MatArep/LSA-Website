@@ -1,0 +1,20 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  meta: string;
+  external?: boolean;
+}
+
+const { href, label, meta, external = false } = Astro.props;
+---
+
+<a
+  class="contact-link"
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
+>
+  <span>{meta}</span>
+  <strong>{label}</strong>
+</a>

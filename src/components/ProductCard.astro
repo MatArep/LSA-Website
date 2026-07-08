@@ -1,0 +1,39 @@
+---
+interface Props {
+  index: number;
+  src: string;
+  title: string;
+  type: string;
+  detail: string;
+  closeups: string[];
+}
+
+const { index, src, title, type, detail, closeups } = Astro.props;
+const delay = `${Math.min(index * 35, 280)}ms`;
+---
+
+<article class="product-card reveal" style={`--delay: ${delay}`}>
+  <button
+    type="button"
+    class="product-open"
+    data-product-open
+    data-title={title}
+    data-type={type}
+    data-detail={detail}
+    data-closeups={closeups.join("|")}
+    data-src={src}
+    aria-label={`View close-up photos of ${title}`}
+  >
+    <div class="product-image-wrap">
+      <img src={src} alt={`${title} by LS Apparel`} loading="lazy" />
+      <span class="product-index">{String(index).padStart(2, "0")}</span>
+      <span class="quick-view">View close-up</span>
+    </div>
+    <div class="product-info">
+      <div>
+        <h3>{title}</h3>
+        <span>{type}</span>
+      </div>
+    </div>
+  </button>
+</article>
